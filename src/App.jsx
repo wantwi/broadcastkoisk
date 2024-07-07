@@ -17,8 +17,6 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="/entertainment" element={<Entertainment />} />
           <Route path="/blog/:id" element={<Blog />} />
-          {/* <Route path="about" element={<About />} /> */}
-          {/* <Route path="dashboard" element={<Dashboard />} /> */}
 
           {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
