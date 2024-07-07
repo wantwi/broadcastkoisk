@@ -1,0 +1,92 @@
+{
+    "categories": [
+        "All",
+        "General News",
+        "Lifestyle/Travel",
+        "Entertainment"
+    ],
+    "posts": [
+        {
+            "id": 2,
+            "title": "COPEC Forecasts Fuel Price Increase",
+            "category": "General News",
+            "image": "/images/fuel-price.jpg",
+            "author": "Adrio Devid",
+            "date": "Sep 10, 2025",
+            "level": 1,
+            "summary": "The Chamber for Petroleum Consumers (COPEC) anticipates that ...",
+            "text": [
+                {
+                    "content": "The Chamber for Petroleum Consumers (COPEC) anticipates that fuel prices will rise in the upcoming July 2024 pricing window. They project increases in retail prices for petrol, diesel, and liquefied petroleum gas (LPG) nationwide.",
+                    "title": ""
+                },
+                {
+                    "content": "The price hikes are primarily linked to a decrease in the dollar-cedi exchange rate, dropping from an average of $1 to GH¢14.4788 to $1 to GH¢15.2779 (-1.89%). According to COPEC, the retail price of petrol is expected to increase by 2.17%, from the current average pump price of GH¢14.17 per litre to GH¢15.20.  Diesel prices at the pump are forecast to rise to GH¢15.21 per litre, while LPG is projected to range between GH¢13.24 and GH¢14.64 per kilogram.",
+                    "title": ""
+                },
+                {
+                    "content": "COPEC’s prediction emphasises the government’s potential role in reducing LPG taxes or subsidising prices to encourage wider usage, thereby contributing to environmental conservation by reducing reliance on firewood. Additionally, COPEC urges the government to prioritise restarting operations at the Tema Oil Refinery (TOR) to minimise imports and associated fuel emissions.",
+                    "title": ""
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "title": "African Sustainability Concert Scheduled For October 2024",
+            "category": "Entertainment",
+            "image": "/images/mandela100_crowd-1.jpg",
+            "author": "Adrio Devid",
+            "date": "Sep 10, 2025",
+            "level": 2,
+            "text": [
+                {
+                    "content": "The African Sustainability Concert is scheduled for October 2024 in the UK, focusing on the critical issues of climate change and environmental degradation that affect Africa’s economy and drive migration to Europe and the Western world. This diverse event will feature a conference, exhibition, award ceremony, and concert, all aimed at addressing key sustainability challenges and promoting positive change across Africa.",
+                    "title": ""
+                },
+                {
+                    "content": "Africa faces significant challenges as climate change and environmental degradation impact millions of people. From unpredictable weather affecting farmers to communities dealing with pollution, the consequences are profound. The African Sustainability Concert aims to spotlight these issues, raise awareness, and encourage action to tackle these challenges.",
+                    "title": "Why this event?"
+                },
+                {
+                    "content": "The event seeks to highlight the urgent need for sustainable development in Africa. With rising temperatures, deforestation, and water scarcity among the pressing environmental issues, the concert aims to inspire collective action to find solutions.",
+                    "title": "Aims"
+                },
+                {
+                    "content": "1. Conference: The conference will feature detailed discussions on the economic impacts of climate change, innovative sustainable building practices, and actionable policy recommendations. Notable speakers include Mr. Basil David Anthony (CEO of Modern Floors), Prof. Terje Gjengedal (renowned innovator and clean energy expert), and Dr. Bright Adom (CEO of Adom Groups of Companies Limited), who will share insights and inspire new ways of thinking.",
+                    "title": "Components of the African Sustainability Concert"
+                },
+                {
+                    "title": "",
+                    "content": "2. Exhibition: The exhibition hall will display green housing solutions, renewable energy technologies, and eco-friendly products. The Green Exhibition at the African Housing Show 2024 will serve as a platform for collaboration and learning, showcasing the latest innovations."
+                },
+                {
+                    "title": "",
+                    "content": "3. Award Ceremony: Recognition is a powerful motivator. The award ceremony will celebrate those who have made significant contributions to sustainable development and environmental stewardship. Categories such as Outstanding Green Project, Innovative Sustainable Solution, and Best Sustainable Project in East, West, Central, and South Africa will highlight exemplary achievements, inspiring continued efforts and new initiatives in sustainability."
+                },
+                {
+                    "title": "",
+                    "content": "4. Concert: This cultural event will feature performances by renowned African artists, blending awareness with entertainment. Through music, speeches, and interactive sessions, the concert aims to educate and inspire, emphasising the importance of sustainability and fostering an emotional connection to the cause. The African Sustainability Concert is a call to action. By bringing together experts, policymakers, business leaders, and the public, the event aims to create a platform for meaningful dialogue and decisive action. Together, we can build a sustainable future for Africa, reduce the need for migration, and promote economic stability through environmental stewardship."
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "title": "Lifestyle Post",
+            "category": "Lifestyle/Travel",
+            "image": "/images/fuel-jpg",
+            "author": "Adrio Devid",
+            "date": "Sep 10, 2025",
+            "level": 3,
+            "text": []
+        },
+        {
+            "id": 4,
+            "title": "Travel Post",
+            "category": "Lifestyle/Travel",
+            "image": "/images/fuel-jpg",
+            "author": "Adrio Devid",
+            "date": "Sep 10, 2025",
+            "text": []
+        }
+    ]
+}
