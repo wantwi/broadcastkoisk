@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import LOGO from "../assets/logo.png"
 
 const blogNavLinks = [
-    { name: "General News", path: "/" },
-    { name: "Entertainment", path: "/entertainment" },
-    { name: "Lifestyle/ Travel", path: "/lifestyle" }
+    { name: "General News", path: "/category/generalnews" },
+    { name: "Entertainment", path: "/category/entertainment" },
+    { name: "Lifestyle/Travel", path: "/category/lifestyle" }
 ]
 
 const Header = () => {
@@ -12,7 +13,9 @@ const Header = () => {
         <header className='fixed left-0 top-0 w-full z-9999 bg-white py-7 lg:py-0 transition-all ease-in-out duration-300'>
             <div className='max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0 lg:flex items-center justify-between relative'>
                 <div className='w-full lg:w-3/12 flex items-center justify-between'>
-                    <Link to={"/"}><h1 className='text-3xl font-bold'>LOGO</h1></Link>
+                    <Link to={"/"}>
+                        <img width={70} src={LOGO} alt='LOGO' />
+                    </Link>
                 </div>
                 <div className='w-full lg:w-9/12 h-0 lg:h-auto invisible lg:visible lg:flex items-center justify-between'>
                     <nav>

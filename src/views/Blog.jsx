@@ -5,32 +5,72 @@ import BlogSmall from "../assets/images/blog-small-01.png"
 import BlogSmall2 from "../assets/images/blog-small-02.png"
 import BlogSmall3 from "../assets/images/blog-small-03.png"
 import { posts, categories } from "../data/data.json"
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Loader from '../component/Loader'
+import axios from 'axios'
+import DOMPurify from 'dompurify';
+import moment from 'moment'
+import { BASEURL } from '../App'
+
+export const formatDateString = (dateString) => {
+    return moment(dateString).format('MMM D, YYYY');
+}
+export const getBG = (cat) => {
+    switch (cat) {
+        case "generalnews": return 'bg-purple/[0.08]'
+        case "entertainment": return 'bg-blue/[0.08]'
+        case "lifestyle": return 'bg-green/[0.08]'
+
+    }
+}
 //
 const Blog = () => {
     const { id } = useParams()
-    const [post, setPosts] = useState(posts?.find(x => x?.id === +id))
+    const [post, setPosts] = useState([])
     const [show, setShow] = useState(true)
+    const [categories, setCategories] = useState([])
 
-    const getBG = (cat) => {
-        switch (cat) {
-            case "General News": return 'bg-purple/[0.08]'
-            case "Entertainment": return 'bg-blue/[0.08]'
-            case "Lifestyle/Travel": return 'bg-green/[0.08]'
+
+
+    const returnName = (category) => categories.find(x => x?.code === category)?.name
+
+    const getAllCategories = async () => {
+        try {
+            const response = await axios.get(`${BASEURLL}/categories`)
+            // console.log({ response })
+            setCategories([{ id: 0, code: "all", name: "All" }, ...response?.data])
+            setShow(false)
+        } catch (error) {
 
         }
     }
-    useEffect(() => {
 
-        setTimeout(() => {
+    const getPost = async () => {
+        setShow(true)
+        try {
+            const response = await axios.get(`${BASEURL}/post/postByID/${id}`)
+            setPosts(response?.data)
+        } catch (error) {
+
+        } finally {
             setShow(false)
-        }, 300);
+        }
+    }
+
+    useEffect(() => {
+        getAllCategories()
 
         return () => {
 
         }
     }, [])
+
+    useEffect(() => {
+
+        getPost()
+
+        return () => { }
+    }, [id])
 
 
     return (
@@ -41,13 +81,13 @@ const Blog = () => {
                 <div className='max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0'>
                     <div className='flex flex-wrap gap-7.5'>
                         <div className='xl:max-w-[770px] w-full'>
-                            <img src={post?.image} alt="blog" className="w-full mb-10" />
+                            <img src={`${BASEURL}${post?.image}`} alt="blog" className="w-full mb-10" />
                             <h1 className="font-bold text-2xl sm:text-4xl lg:text-custom-2 text-dark mb-5.5">
-                                {post.title}
+                                {post?.title}
                             </h1>
                             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
                                 <a href="#" className="flex w-8.5 h-8.5 rounded-full overflow-hidden">
-                                    <img src={post?.image} alt="user" />
+                                    <img src={User2} alt="user" />
                                 </a>
                                 <div className="flex flex-wrap items-center gap-4">
                                     <div className="flex flex-wrap items-center gap-2.5">
@@ -55,20 +95,26 @@ const Blog = () => {
                                             <a href="#">{post.author}</a>
                                         </h4>
                                         <span className="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
-                                        <p className="text-custom-sm">{post.date}</p>
+                                        <p className="text-custom-sm">{formatDateString(post.date)}</p>
                                         <span className="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
                                         <p className="text-custom-sm">12 min read</p>
                                     </div>
-                                    <a href="category.html" className={`inline-flex text-teal-dark ${getBG(post.category)} font-medium text-custom-sm py-1 px-3 rounded-full`}>
-                                        {post.category}
-                                    </a>
+                                    <Link to={`/category/${post?.category}`} className={`inline-flex text-teal-dark ${getBG(post?.category)} font-medium text-custom-sm py-1 px-3 rounded-full`}>
+                                        {returnName(post?.category)}
+                                    </Link>
                                 </div>
                             </div>
                             <div className="mt-9">
 
-                                {
+                                <div
+                                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.text) }}
+                                ></div>
+
+
+
+                                {/* {
                                     post.text.map((x, i) => <div> {x?.title ? <h5 className='font-bold'>{x?.title}</h5> : null} <p key={i + 9} className="mb-5 text-body text-justify" style={{ textAlign: "justify" }}>{x.content}</p> </div>)
-                                }
+                                } */}
 
                             </div>
                             {/* <div className="rounded-md bg-gray py-9 px-10 my-8">

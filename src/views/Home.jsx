@@ -11,32 +11,61 @@ import Blog4 from "../assets/images/blog-04.png"
 import Blog6 from "../assets/images/blog-06.png"
 import Blog5 from "../assets/images/blog-05.png"
 import { Link } from 'react-router-dom'
-import { posts, categories } from "../data/data.json"
+// import { categories } from "../data/data.json"
 import Loader from '../component/Loader'
+import axios from 'axios'
+import { formatDateString, getBG } from './Blog'
+import { BASEURL } from '../App'
 
 const Home = () => {
-    const [selectedCategory, setSelectedCategory] = useState("All");
-    const [hoverCover, sethoverCover] = useState(posts?.find(x => x?.level === 1))
+    const [selectedCategory, setSelectedCategory] = useState("all");
+    const [posts, setPosts] = useState([])
+    const [categories, setCategories] = useState([])
+    const [hoverCover, sethoverCover] = useState({})
     const [hoverCover2, sethoverCover2] = useState(posts?.find(x => x?.level === 2))
     const [hoverCover3, sethoverCover3] = useState(posts?.find(x => x?.level === 2))
+
     const [show, setShow] = useState(true)
 
-    useEffect(() => {
+    const returnName = (category) => categories.find(x => x?.code === category)?.name
 
-        setTimeout(() => {
+    const getAllPost = async () => {
+        try {
+            const response = await axios.get(`${BASEURL}/posts`)
+            // console.log({ response })
+            setPosts(response?.data)
+            sethoverCover(response?.data?.find(x => x?.level === 1))
+            sethoverCover3(response?.data?.find(x => x?.level === 3))
+            sethoverCover2(response?.data?.find(x => x?.level === 2))
             setShow(false)
-        }, 300);
-
-        return () => {
+        } catch (error) {
 
         }
+    }
+
+    const getAllCategories = async () => {
+        try {
+            const response = await axios.get(`${BASEURL}/categories`)
+            // console.log({ response })
+            setCategories([{ id: 0, code: "all", name: "All" }, ...response?.data])
+            setShow(false)
+        } catch (error) {
+
+        }
+    }
+
+
+    useEffect(() => {
+        getAllCategories()
+        getAllPost()
+        return () => { }
     }, [])
+
+    // console.log({ hoverCover: BASEURL });
 
 
     const getPostsToDisplay = () => {
-        if (selectedCategory === "All") {
-
-
+        if (selectedCategory === "all") {
             return posts
         }
         return posts.filter((post) => post.category === selectedCategory);
@@ -45,14 +74,16 @@ const Home = () => {
     const renderButtons = () =>
         categories.map((category) => (
             <button
-                key={category}
-                className={`rounded-full border py-2.5 px-4.5 font-medium hover:bg-dark hover:border-dark hover:text-white ease-in duration-200 ${selectedCategory === category ? "bg-dark border-dark text-white" : "bg-gray border-gray-3 text-dark"
+                key={category?.code}
+                className={`rounded-full border py-2.5 px-4.5 font-medium hover:bg-dark hover:border-dark hover:text-white ease-in duration-200 ${selectedCategory === category?.code ? "bg-dark border-dark text-white" : "bg-gray border-gray-3 text-dark"
                     }`}
-                onClick={() => setSelectedCategory(category)}
+                onClick={() => setSelectedCategory(category?.code)}
             >
-                {category}
+                {category?.name}
             </button>
         ));
+
+    // console.log({ hoverCover3, hoverCover2 });
     return (
         <main>
             {show && <Loader />}
@@ -69,19 +100,19 @@ const Home = () => {
 
                         <div className="max-w-[1170px] w-full flex flex-col lg:flex-row lg:items-center gap-7.5 lg:gap-11 bg-white shadow-1 rounded-xl p-4 lg:p-2.5">
                             <div className="lg:max-w-[536px] w-full">
-                                <Link to={"/blog/2"}>
-                                    <img className="w-full rounded-xl" src={hoverCover.image} alt="hero" />
+                                <Link to={`/blog/${hoverCover?.id}`}>
+                                    <img className="w-full rounded-xl" src={`${BASEURL}${hoverCover?.image}`} alt="hero" />
                                 </Link>
                             </div>
                             <div className="lg:max-w-[540px] w-full">
-                                <a href="category.html" className="inline-flex text-purple-dark bg-purple/[0.08] font-medium text-sm py-1 px-3 rounded-full mb-4">{hoverCover.category}</a>
+                                <Link to={`/category/${hoverCover?.category}`} className="inline-flex text-purple-dark bg-purple/[0.08] font-medium text-sm py-1 px-3 rounded-full mb-4">{returnName(hoverCover?.category)}</Link>
                                 <h1 className="font-bold text-custom-4 xl:text-heading-4 text-dark mb-4">
-                                    <Link to={"/blog/2"}>
-                                        {hoverCover.title}
+                                    <Link to={`/blog/${hoverCover?.id}`}>
+                                        {hoverCover?.title}
                                     </Link>
                                 </h1>
                                 <p className="max-w-[524px]">
-                                    {hoverCover.summary}
+                                    {hoverCover?.summary}
                                 </p>
                                 <div className="flex items-center gap-2.5 mt-5">
                                     <a href="author.html" className="flex items-center gap-3">
@@ -91,53 +122,53 @@ const Home = () => {
                                         <p className="text-sm">Sarah Boye</p>
                                     </a>
                                     <span className="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
-                                    <p className="text-sm">Feb 10, 2024</p>
+                                    <p className="text-sm">{formatDateString(hoverCover?.date)}</p>
                                 </div>
                             </div>
                         </div>
 
                         <div className="lg:max-w-[570px] w-full flex flex-col sm:flex-row sm:items-center gap-6 bg-white shadow-1 rounded-xl p-2.5">
                             <div className="lg:max-w-[238px] w-full">
-                                <a href="blog-single.html">
-                                    <img className="w-full rounded-xl" src={"/images/mandela100_crowd-1.jpg"} alt="hero" />
-                                </a>
+                                <Link to={`/blog/${hoverCover3?.id}`}>
+                                    <img className="w-full rounded-xl" src={`${BASEURL}${hoverCover3?.image}`} alt="hero" />
+                                </Link>
                             </div>
                             <div className="lg:max-w-[272px] w-full">
-                                <a href="category.html" className="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full mb-4">Entertainment</a>
+                                <Link to={`/category/${hoverCover3?.category}`} className={`inline-flex text-blue ${getBG(hoverCover3?.category)} font-medium text-sm py-1 px-3 rounded-full mb-4`}>{returnName(hoverCover3?.category)}</Link>
                                 <h2 className="font-semibold text-custom-lg text-dark mb-3">
-                                    <Link to={"/blog/5"}>
-                                        African Sustainability Concert Scheduled For October 2024
+                                    <Link to={`/blog/${hoverCover3?.id}`}>
+                                        {hoverCover3?.title}
                                     </Link>
                                 </h2>
                                 <div className="flex items-center gap-2.5">
                                     <p className="text-sm">
-                                        <a href="author.html">By Sarah Boye</a>
+                                        <a href="#">By {hoverCover3?.author}</a>
                                     </p>
                                     <span className="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
-                                    <p className="text-sm">Mar 10, 2024</p>
+                                    <p className="text-sm">{formatDateString(hoverCover3?.date)}</p>
                                 </div>
                             </div>
                         </div>
 
                         <div className="lg:max-w-[570px] w-full flex flex-col sm:flex-row sm:items-center gap-6 bg-white shadow-1 rounded-xl p-2.5">
                             <div className="lg:max-w-[238px] w-full">
-                                <a href="blog-single.html">
-                                    <img className="w-full rounded-xl" src={Will} alt="hero" />
-                                </a>
+                                <Link to={`/blog/${hoverCover2?.id}`}>
+                                    <img className="w-full rounded-xl" src={`${BASEURL}${hoverCover2?.image}`} alt="hero" />
+                                </Link>
                             </div>
                             <div className="lg:max-w-[272px] w-full">
-                                <a href="category.html" className="inline-flex text-green-dark bg-green/[0.08] font-medium text-sm py-1 px-3 rounded-full mb-4">Travel</a>
+                                <Link to={`/blog/${hoverCover2?.id}`} className={`inline-flex text-green-dark ${getBG(hoverCover2?.category)} font-medium text-sm py-1 px-3 rounded-full mb-4`}>{returnName(hoverCover2?.category)}</Link>
                                 <h2 className="font-semibold text-custom-lg text-dark mb-3">
-                                    <a href="blog-single.html">
-                                        Unveiling Ghana's Hidden Charms: Exploring the Enigmatic Beauty of Wli Waterfalls
-                                    </a>
+                                    <Link to={`/blog/${hoverCover2?.id}`}>
+                                        {hoverCover2?.title}
+                                    </Link>
                                 </h2>
                                 <div className="flex items-center gap-2.5">
                                     <p className="text-sm">
-                                        <a href="author.html">By Sara Boye</a>
+                                        <a href="#">By {hoverCover2?.author}</a>
                                     </p>
                                     <span className="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
-                                    <p className="text-sm">Sep 10, 2022</p>
+                                    <p className="text-sm">{formatDateString(hoverCover2?.date)}</p>
                                 </div>
                             </div>
                         </div>
@@ -164,7 +195,7 @@ const Home = () => {
                                     <div key={post.id} className="group">
                                         <div className="mb-6 overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
                                             <Link to={`blog/${post?.id}`}>
-                                                <img src={post.image} alt="image" className="w-full" />
+                                                <img src={`${BASEURL}${post.image}`} alt="image" className="w-full" />
                                             </Link>
                                         </div>
                                         <h3>
@@ -174,7 +205,7 @@ const Home = () => {
                                                 </span>
                                             </Link>
                                         </h3>
-                                        <p>Lorem Ipsum is simply dummy text of the print and typesetting industry...</p>
+                                        {/* <p>Lorem Ipsum is simply dummy text of the print and typesetting industry...</p> */}
                                         <div className="flex flex-wrap gap-3 items-center justify-between mt-4.5">
                                             <div className="flex items-center gap-2.5">
                                                 <a href="author.html" className="flex items-center gap-3">
@@ -184,11 +215,11 @@ const Home = () => {
                                                     <p className="text-sm">{post.author}</p>
                                                 </a>
                                                 <span className="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
-                                                <p className="text-sm">{post.date}</p>
+                                                <p className="text-sm">{formatDateString(post.date)}</p>
                                             </div>
-                                            <a href="category.html" className="inline-flex text-blue bg-blue/[0.08] font-medium text-sm py-1 px-3 rounded-full">
-                                                {post.category}
-                                            </a>
+                                            <Link to={`/category/${post.category}`} className={`inline-flex text-blue ${getBG(post?.category)} font-medium text-sm py-1 px-3 rounded-full`}>
+                                                {returnName(post.category)}
+                                            </Link>
                                         </div>
                                     </div>
                                 ))}

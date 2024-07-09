@@ -1,9 +1,21 @@
 {
     "categories": [
-        "All",
-        "General News",
-        "Lifestyle/Travel",
-        "Entertainment"
+        {
+            "id": "all",
+            "name": "All"
+        },
+        {
+            "id": "generalnews",
+            "name": "General News"
+        },
+        {
+            "id": "lifestyle",
+            "name": "Lifestyle/Travel"
+        },
+        {
+            "id": "entertainment",
+            "name": "Entertainment"
+        }
     ],
     "posts": [
         {
@@ -80,13 +92,15 @@
             "text": []
         },
         {
-            "id": 4,
-            "title": "Travel Post",
-            "category": "Lifestyle/Travel",
-            "image": "/images/fuel-jpg",
-            "author": "Adrio Devid",
-            "date": "Sep 10, 2025",
-            "text": []
+            "id": "",
+            "title": "",
+            "category": "",
+            "image": "",
+            "author": "",
+            "date": "",
+            "text": [],
+            "level": 1,
+            "summary": ""
         }
     ]
 }
