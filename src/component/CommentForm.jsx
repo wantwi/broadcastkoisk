@@ -17,6 +17,7 @@ const CommentForm = ({ getPost, postId, parentId = null }) => {
       .then((response) => {
         getPost();
         setContent("");
+        setName("");
       });
   };
 
