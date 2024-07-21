@@ -7,8 +7,8 @@ import Entertainment from "./views/Entertainment";
 import Blog from "./views/Blog";
 import EditorPanel from "./views/EditorPanel";
 
-export const BASEURL="https://my-testapi.tinatettherbalpos.com"
-
+// export const BASEURL="https://my-testapi.tinatettherbalpos.com"
+export const BASEURL="http://localhost:5600"
 export default function App() {
   return (
     <div>
