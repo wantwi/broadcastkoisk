@@ -83,6 +83,7 @@ const Comment = ({ getPost, postId, comment, parentId }) => {
             type="text"
             placeholder="Enter name"
             name="name"
+            value={name}
             onChange={(e) => setName(e.target.value)}
             style={{ border: "1px solid #ddd" }}
             className="w-full p-2 bg-gray-200 border-gray-700 mb-2"
