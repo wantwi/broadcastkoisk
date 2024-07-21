@@ -15,9 +15,9 @@ const CommentForm = ({ getPost, postId, parentId = null }) => {
         name,
       })
       .then((response) => {
-        getPost();
         setContent("");
         setName("");
+        getPost();
       });
   };
 
@@ -28,6 +28,7 @@ const CommentForm = ({ getPost, postId, parentId = null }) => {
         placeholder="Enter name"
         name="name"
         onChange={(e) => setName(e.target.value)}
+        value={name}
         style={{ border: "1px solid #ddd" }}
         className="w-full p-2 bg-gray-200 border-gray-700 mb-2"
       />
