@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { BASEURL } from "../App";
 
 const CommentForm = ({ getPost, postId, parentId = null }) => {
   const [content, setContent] = useState("");
@@ -8,7 +9,7 @@ const CommentForm = ({ getPost, postId, parentId = null }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`http://localhost:5600/posts/${postId}/comments`, {
+      .post(`${BASEURL}/posts/${postId}/comments`, {
         content,
         parentId,
         name,

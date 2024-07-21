@@ -11,6 +11,7 @@ import {
 import axios from "axios";
 import IMG from "../assets/images/pro.jpg";
 import moment from "moment";
+import { BASEURL } from "../App";
 const Comment = ({ getPost, postId, comment, parentId }) => {
   const [show, setShow] = useState(false);
   const [showReply, setShowReply] = useState(false);
@@ -22,7 +23,7 @@ const Comment = ({ getPost, postId, comment, parentId }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`http://localhost:5600/posts/${postId}/comments`, {
+      .post(`${BASEURL}/posts/${postId}/comments`, {
         content,
         parentId,
         name,
